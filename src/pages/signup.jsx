@@ -5,36 +5,27 @@ import { useForm } from "../utils/formHooks";
 
 const SignUp = () => {
   const [errors, setErrors] = useState({});
-  const [values, setValues] = useState({
+  const { onChange, onSubmit, values } = useForm(registerUser, {
     username: "",
     email: "",
     password: ""
   });
 
-  const handleChange = event => {
-    const { name, value } = event.target;
-    setValues({ ...values, [name]: value });
-  };
-
   const [addUser, { loading }] = useMutation(CREATE_USER_MUTATION, {
-    update(proxy, result) {
-      console.log(result);
-    },
-    onError: error => {
-      setErrors(error);
+    update(_, result) {},
+    onError(err) {
+      setErrors(err);
     },
     variables: values
   });
-
-  const handleSubmit = event => {
-    event.preventDefault();
+  function registerUser() {
     addUser();
-  };
+  }
 
   return (
     <React.Fragment>
       <div className="box" style={{ margin: "0 10rem" }}>
-        <form noValidate onSubmit={handleSubmit}>
+        <form noValidate onSubmit={onSubmit}>
           <div className="field">
             <p className="control has-icons-left has-icons-right">
               <input
@@ -42,7 +33,7 @@ const SignUp = () => {
                 type="text"
                 placeholder="User Name"
                 name="username"
-                onChange={handleChange}
+                onChange={onChange}
                 value={values.username}
               />
               <span className="icon is-small is-left">
@@ -58,7 +49,7 @@ const SignUp = () => {
                 type="email"
                 placeholder="Email"
                 name="email"
-                onChange={handleChange}
+                onChange={onChange}
                 value={values.email}
               />
               <span className="icon is-small is-left">
@@ -74,7 +65,7 @@ const SignUp = () => {
                 type="password"
                 placeholder="Password"
                 name="password"
-                onChange={handleChange}
+                onChange={onChange}
                 value={values.password}
               />
               <span className="icon is-small is-left">
