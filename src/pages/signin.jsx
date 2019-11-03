@@ -1,18 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useMutation } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import { useForm } from "../utils/formHooks";
+import { AuthContext } from "../context/authContext";
 
-const SignIn = () => {
+const SignIn = ({ history }) => {
+  const context = useContext(AuthContext);
   const [errors, setErrors] = useState({});
   const { onChange, onSubmit, values } = useForm(loginUser, {
-    identifier: "",
-    password: ""
+    identifier: "anita",
+    password: "anita@1234"
   });
 
   const [login, { loading }] = useMutation(CREATE_USER_MUTATION, {
     update(_, result) {
-      console.log(result);
+      context.login(result.data.login);
+      history.push("/home");
     },
     onError(err) {
       setErrors(err);

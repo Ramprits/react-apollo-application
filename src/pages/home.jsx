@@ -13,42 +13,42 @@ const Home = () => {
         <div className="columns is-multiline">
           {data &&
             data.items.map(item => (
-              <div className="column is-4">
-                <div class="card" style={{ height: "100%", width: "100%" }}>
-                  <header class="card-header">
-                    <p class="card-header-title">{item.name}</p>
+              <div className="column is-4" key={item.id}>
+                <div className="card" style={{ height: "100%", width: "100%" }}>
+                  <header className="card-header">
+                    <p className="card-header-title">{item.name}</p>
                     <a
                       href="#"
-                      class="card-header-icon"
+                      className="card-header-icon"
                       aria-label="more options"
                     >
-                      <span class="icon">
-                        <i class="fas fa-angle-down" aria-hidden="true" />
+                      <span className="icon">
+                        <i className="fas fa-angle-down" aria-hidden="true" />
                       </span>
                     </a>
                   </header>
-                  <div class="card-image">
-                    <figure class="image is-4by3">
+                  <div className="card-image">
+                    <figure className="image is-4by3">
                       <img
                         src={`http://localhost:1337${item.image.url}`}
                         alt={item.name}
                       />
                     </figure>
                   </div>
-                  <div class="card-content">
-                    <div class="content">
+                  <div className="card-content">
+                    <div className="content">
                       {item.description.substr(0, 220).concat("...")}
                       <br />
                     </div>
                   </div>
-                  <footer class="card-footer">
-                    <a href="#" class="card-footer-item">
+                  <footer className="card-footer">
+                    <a href="#" className="card-footer-item">
                       Add To Cart
                     </a>
-                    <a href="#" class="card-footer-item">
+                    <a href="#" className="card-footer-item">
                       Edit
                     </a>
-                    <a href="#" class="card-footer-item">
+                    <a href="#" className="card-footer-item">
                       Delete
                     </a>
                   </footer>
@@ -64,6 +64,7 @@ const Home = () => {
 const FETCH_ITEMS_QUERY = gql`
   query GET_ITEMS {
     items {
+      id
       name
       description
       price

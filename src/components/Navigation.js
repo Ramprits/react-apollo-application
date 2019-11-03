@@ -14,7 +14,7 @@ const Navigation = () => {
           />
         </Link>
 
-        <Link
+        <a
           role="button"
           className="navbar-burger burger"
           aria-label="menu"
@@ -24,7 +24,7 @@ const Navigation = () => {
           <span aria-hidden="true" />
           <span aria-hidden="true" />
           <span aria-hidden="true" />
-        </Link>
+        </a>
       </div>
 
       <div id="navbarBasicExample" className="navbar-menu">
