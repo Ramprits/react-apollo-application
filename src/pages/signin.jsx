@@ -90,7 +90,6 @@ const CREATE_USER_MUTATION = gql`
     login(input: { identifier: $identifier, password: $password }) {
       jwt
       user {
-        _id
         email
       }
     }

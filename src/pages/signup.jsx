@@ -83,6 +83,7 @@ const SignUp = () => {
               </button>
             </p>
           </div>
+          
           {Object.keys(errors).length > 0 && (
             <div class="notification is-danger">
               <button type="button" class="delete" />
