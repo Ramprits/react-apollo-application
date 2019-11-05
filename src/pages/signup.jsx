@@ -3,7 +3,7 @@ import { useMutation } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import { useForm } from "../utils/formHooks";
 
-const SignUp = () => {
+const SignUp = ({ history }) => {
   const [errors, setErrors] = useState({});
   const { onChange, onSubmit, values } = useForm(registerUser, {
     username: "",
@@ -20,6 +20,7 @@ const SignUp = () => {
   });
   function registerUser() {
     addUser();
+    history.push("/login");
   }
 
   return (
@@ -83,7 +84,7 @@ const SignUp = () => {
               </button>
             </p>
           </div>
-          
+
           {Object.keys(errors).length > 0 && (
             <div class="notification is-danger">
               <button type="button" class="delete" />

@@ -1,24 +1,34 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
-import gql from "graphql-tag";
+import { POSTS_QUERY } from "../utils/graphQl";
 
-const Home = () => {
-  const { loading, data } = useQuery(FETCH_ITEMS_QUERY);
-
+const Post = ({ history }) => {
+  const { data, loading, error } = useQuery(POSTS_QUERY);
+  if (data) {
+    console.log(data);
+  }
   return (
     <React.Fragment>
+      <button
+        className="button is-small is-rounded is-link mb-1"
+        onClick={() => history.push("/addPost")}
+      >
+        Add New Post
+      </button>
       {loading ? (
         <div className="is-loading">Please wait while loading</div>
       ) : (
         <div className="columns is-multiline">
           {data &&
-            data.items.map(item => (
+            data.posts.map(item => (
               <div className="column is-4" key={item.id}>
                 <div className="card" style={{ height: "100%", width: "100%" }}>
                   <header className="card-header">
                     <p className="card-header-title">
-                      <Link to={`${item.id}`}>{item.name}</Link>
+                      <Link to={`${item.id}`}>
+                        {item.title.substr(0, 50).concat("...")}
+                      </Link>
                     </p>
                     <a
                       href="#"
@@ -30,17 +40,9 @@ const Home = () => {
                       </span>
                     </a>
                   </header>
-                  <div className="card-image">
-                    <figure className="image is-4by3">
-                      <img
-                        src={`http://localhost:1337${item.image.url}`}
-                        alt={item.name}
-                      />
-                    </figure>
-                  </div>
                   <div className="card-content">
                     <div className="content">
-                      {item.description.substr(0, 220).concat("...")}
+                      {item.body.substr(0, 100).concat("...")}
                       <br />
                     </div>
                   </div>
@@ -64,18 +66,4 @@ const Home = () => {
   );
 };
 
-const FETCH_ITEMS_QUERY = gql`
-  query GET_ITEMS {
-    items {
-      id
-      name
-      description
-      price
-      image {
-        url
-      }
-    }
-  }
-`;
-
-export default Home;
+export default Post;

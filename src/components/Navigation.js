@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/authContext";
 
-const Navigation = () => {
+const Navigation = ({history}) => {
   const { user, logout } = useContext(AuthContext);
 
   return (
@@ -32,7 +32,7 @@ const Navigation = () => {
 
       <div id="navbarBasicExample" className="navbar-menu">
         <div className="navbar-start">
-          <Link to="/home" className="navbar-item">
+          <Link to="/post" className="navbar-item">
             Home
           </Link>
         </div>
